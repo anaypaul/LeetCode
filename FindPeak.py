@@ -37,6 +37,7 @@ def search(arr, target):
     """
     if(len(arr)==0):
         return -1
+    
     pivot_index = getPivot(arr)
     
     left = arr[:pivot_index+1]
