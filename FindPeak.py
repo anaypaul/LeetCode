@@ -5,17 +5,27 @@ def getPivot(arr):
     The idea is to get the pivot location in the array and split the array into 2 to search
     for the target element in the 2 arrays.
     """
-    low = 0
-    high = len(arr) - 1
-    while(low <= high):
-        mid = int((low + high)/2)
-        if mid+1 < len(arr) and arr[mid] > arr[mid+1] and arr[mid] > arr[mid-1]: 
-            break
-        elif mid+1 < len(arr) and arr[mid-1] > arr[mid+1]:
-            high = mid -1
+    if(len(arr)==0):
+        return -1
+    elif len(arr) == 1:
+        return 0
+    elif len(arr) == 2:
+        if arr[0] > arr[1]:
+            return 0
         else:
-            low = mid + 1
-    return mid
+            return 1
+    else:
+        low = 0
+        high = len(arr) - 1
+        while(low <= high):
+            mid = int((low + high)/2)
+            if mid+1 < len(arr) and arr[mid] > arr[mid+1] and arr[mid] > arr[mid-1]: 
+                break
+            elif mid+1 < len(arr) and arr[high] < arr[low]:
+                high = mid -1
+            else:
+                low = mid + 1
+        return mid
 def binarySearch(arr,low, high, key):
 
     """
@@ -37,8 +47,8 @@ def search(arr, target):
     """
     if(len(arr)==0):
         return -1
-    pivot_index = getPivot(arr)
     
+    pivot_index = getPivot(arr)
     left = arr[:pivot_index+1]
     right = arr[pivot_index+1:]
     ans_left = binarySearch(left, 0,len(left)-1,target)
