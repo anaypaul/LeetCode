@@ -1,11 +1,13 @@
-from exp import bSearch
-from SquareRoot import sqrt
+
 """
 This is the main file to invoke the methods present in the solution files to each problem based
 on the need.
 """
+from FindPeak import *
 def main():
-    print(sqrt(int(input())))
+    arr = list(map(int, input().split()))
+    target = int(input())
+    print("the key is present at index = ",search(arr,target))
 
 if __name__ == '__main__':
     main()
