@@ -27,7 +27,6 @@ def getPivot(arr):
                 low = mid + 1
         return mid
 def binarySearch(arr,low, high, key):
-
     """
     Simple binary search implementation to search for a key in a sorted array.
     """
