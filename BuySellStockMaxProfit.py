@@ -9,19 +9,15 @@ def maxProfit(self, prices):
     :type prices: List[int]
     :rtype: int
     """
-    growth = [0]*len(prices)
-    for i in range(1,len(prices)):
-        if prices[i] > prices[i-1]:
-            growth[i] = 1
-    
     profit = 0
-    i = len(prices) - 1
-    while(i>=0):
-        if growth[i]==1:
-            sell=prices[i]
-            while(growth[i]!=0 and i>=0):
+        i = len(prices) - 1
+        while(i>=0):
+            if( i-1 >=0 and prices[i] > prices[i-1]):
+                sell = prices[i]
                 i = i - 1
-            buy = prices[i]
-            profit += sell - buy
-        i = i - 1
-    return profit
+                while(i-1>=0 and prices[i] > prices[i-1]  ):
+                    i = i - 1
+                buy = prices[i]
+                profit +=  sell-buy
+            i=i-1
+        return profit
