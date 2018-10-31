@@ -4,10 +4,11 @@ This is the main file to invoke the methods present in the solution files to eac
 on the need.
 """
 from SearchRotatedArray import *
+from RemoveDuplicatesFromSortedArray import removeDuplicates
 def main():
     arr= list(map(int, input().split()))
-    target = int(input())
-    print("the key is present at index = ",search(arr,target))
+    print(removeDuplicates(arr))
+    print(arr)
 
 if __name__ == '__main__':
     main()
