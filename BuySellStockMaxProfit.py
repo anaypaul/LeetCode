@@ -10,14 +10,14 @@ def maxProfit(self, prices):
     :rtype: int
     """
     profit = 0
-        i = len(prices) - 1
-        while(i>=0):
-            if( i-1 >=0 and prices[i] > prices[i-1]):
-                sell = prices[i]
+    i = len(prices) - 1
+    while(i>=0):
+        if( i-1 >=0 and prices[i] > prices[i-1]):
+            sell = prices[i]
+            i = i - 1
+            while(i-1>=0 and prices[i] > prices[i-1]  ):
                 i = i - 1
-                while(i-1>=0 and prices[i] > prices[i-1]  ):
-                    i = i - 1
-                buy = prices[i]
-                profit +=  sell-buy
-            i=i-1
-        return profit
+            buy = prices[i]
+            profit +=  sell-buy
+        i=i-1
+    return profit
