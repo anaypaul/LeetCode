@@ -3,7 +3,7 @@
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-def reverseList(self, head):
+def reverseList(head):
     """
     :type head: ListNode
     :rtype: ListNode
