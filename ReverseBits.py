@@ -11,3 +11,6 @@ def reverseBits(n):
     for i in range(len(x)):
         result += (2**i)*int(x[i])
     return result
+    #alternative method 
+    #pythonic solution.
+    # return int(bin(n)[2:].zfill(32)[::-1], 2) 
