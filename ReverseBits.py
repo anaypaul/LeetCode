@@ -13,4 +13,4 @@ def reverseBits(n):
     return result
     #alternative method 
     #pythonic solution.
-    # return int(bin(n)[2:].zfill(32)[::-1], 2) 
+    # return int(bin(n)[2:].zfill(32)[::-1], 2) s
