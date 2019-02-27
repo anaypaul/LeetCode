@@ -9,21 +9,19 @@
  */
 class Solution {
 public:
-    int maxi = 0;
-    int getDiameter(TreeNode * root){
+    int Dfs(TreeNode * root , int& result){
         if(root == NULL){
             return 0;
         }
-        int left = getDiameter(root->left);
-        int right = getDiameter(root->right);
-        if(left + right > maxi){
-            maxi = left+ right ;
-        }
-        return 1+ max(left, right);
+        int left = Dfs(root->left, result);
+        int right = Dfs(root->right, result);
+        result = max(result, left+right);
+        return max(left, right) + 1;
     }
     
     int diameterOfBinaryTree(TreeNode* root) {
-        int ans = getDiameter(root);
-        return maxi;
+        int answer = 0;
+        Dfs(root, answer);
+        return answer;
     }
 };
