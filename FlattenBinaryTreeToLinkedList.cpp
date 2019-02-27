@@ -9,7 +9,24 @@
  */
 class Solution {
 public:
+
     void flatten(TreeNode* root) {
+        //iterative solution
+        while(root){
+            if(root->left){
+                TreeNode * pre = root->left;
+                while(pre->right){
+                    pre = pre->right;
+                }
+                pre->right = root->right;
+                root->right = root->left;
+                root->left = NULL;
+            }
+            root = root->right;
+        }
+    }
+    void flatten(TreeNode* root) {
+        //recursive solution
         if(root){
             if(root->left){
                 TreeNode * next = root->right;
