@@ -20,7 +20,7 @@
  */
 
 
-
+//Recursive Approach 
 class Solution {
 public:
     vector<int> ans_temp;
@@ -55,5 +55,56 @@ public:
         }
         return ans;
         
+    }
+};
+
+
+
+
+
+//Iterative approach.
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        TreeNode * curr = root;
+        if(!root){
+            return res;
+        }
+        queue<TreeNode * > q;
+        vector<int> level;
+        vector<TreeNode *> next;
+        q.push(root);
+        while(!q.empty()){
+            while(!q.empty()){
+                next.push_back(q.front());
+                q.pop();
+            }
+            for(int i = 0;i<next.size();i++){
+                if(next[i]!=NULL){
+                    level.push_back(next[i]->val);
+                    if(next[i]->left!=NULL){
+                        q.push(next[i]->left);
+                    } 
+                    if(next[i]->right != NULL){
+                        q.push(next[i]->right);
+                    }
+                }
+            }
+            next.clear();
+            res.push_back(level);
+            level.clear();
+        }
+        return res;
     }
 };
