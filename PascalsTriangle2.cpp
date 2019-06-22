@@ -6,30 +6,26 @@ Note that the row index starts from 0.
 class Solution {
 public:
     vector<int> getRow(int rowIndex) {
-        vector<int> prev ;
-        
-        if(rowIndex==0){
-            prev.push_back(1);
-            return prev;
-        }
-        if(rowIndex==1){
-            prev.push_back(1);
-            prev.push_back(1);
-            return prev;
-        }
+        vector<int> prev;
         prev.push_back(1);
-        prev.push_back(1);
-        for(int i = 2;i<=rowIndex; i++){
-            int x = prev.size();
-            vector<int> curr;
-            curr.push_back(1);
-            for(int j = 0;j<x-1;j++){
-                curr.push_back(prev[j]+prev[j+1]);
+        vector<int> next(2,1);
+        if(rowIndex == 0){
+            return prev;
+        }else if(rowIndex == 1){
+            return next;
+        }else{
+            for(int i = 2; i<=rowIndex;i++){
+                prev.clear();
+                prev = next;
+                next.clear();
+                next.push_back(1);
+                for(int i = 0;i<prev.size()-1;i++){
+                    next.push_back(prev[i]+prev[i+1]);
+                }
+                next.push_back(1);
             }
-            curr.push_back(1);
-            prev = curr;
-            curr.clear();
         }
-        return prev;
+        return next;
+        
     }
 };
