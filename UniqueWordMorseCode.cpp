@@ -1,22 +1,23 @@
 class Solution {
 public:
     int uniqueMorseRepresentations(vector<string>& words) {
-        map<char, string> mymap;
-        string codes[] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
-        char abc[] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        for(int i = 0;i<26;i++){
-            mymap.insert(make_pair(abc[i], codes[i]));
+        set<string> res;
+        string code[26] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        char ch = 'a';
+        map<char, string> m;
+        m.insert(make_pair(ch, code[0]));
+        for(int i = 1;i<26;i++){
+            m.insert(make_pair(ch+i, code[i]));
         }
-        set<string> s;
+        
         for(int i = 0;i<words.size();i++){
-            string x = words[i];
-            string ss ="";
-            for(int j = 0;j<x.length();j++){
-                ss = ss + mymap[x[j]];
+            string x = "";
+            for(int j = 0;j<words[i].length();j++){
+                x += m[words[i][j]];
             }
-            s.insert(ss);
+            res.insert(x);
+            
         }
-        return s.size();
-
+        return res.size();
     }
 };
