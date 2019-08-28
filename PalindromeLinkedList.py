@@ -28,7 +28,7 @@ def isPalindrome(self, head):
             curr = slow.next
         else:
             return True
-        #reverse the other half of the string
+        #reverse the other half of the list
         while(curr!= None):
             n = curr.next
             curr.next = prev
