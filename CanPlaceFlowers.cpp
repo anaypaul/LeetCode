@@ -33,6 +33,10 @@ public:
                     x++;
                 }
             }
+            if(x >=n){
+                ans = true;
+                break;
+            }
         }
         if(x >=n){
             ans = true;
