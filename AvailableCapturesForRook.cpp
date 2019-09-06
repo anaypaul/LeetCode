@@ -1,59 +1,69 @@
 class Solution {
 public:
     int numRookCaptures(vector<vector<char>>& board) {
-        int ans = 0;
-        int index_x = -1;
-        int index_y = -1;
-        //find position of rook
+        int count = 0;
+        int rook_i = -1;
+        int rook_j = -1;
         for(int i = 0;i<board.size();i++){
-            for(int j = 0;j<board[i].size();j++){
+            for(int j = 0;j<board[0].size();j++){
                 if(board[i][j] == 'R'){
-                    index_x = i;
-                    index_y = j;
+                    rook_i = i;
+                    rook_j = j;
+                    break;
                 }
             }
-        }
-        cout<<index_x<<" "<<index_y<<endl;
-        //check upward
-        for(int i = index_y-1;i>=0;i--){
-            if(board[index_x][i]>='A' && board[index_x][i] <='Z'){
-                break;
-            }
-            if(board[index_x][i] == 'p'){
-                ans++;
+            if(rook_i != -1){
                 break;
             }
         }
-        //check downward
-        for(int i = index_y+1 ;i<board.size();i++){
-            if(board[index_x][i]>='A' && board[index_x][i] <='Z'){
+        
+        //toward right
+        for(int j = rook_j ; j<board[0].size()-1;j++){
+            if(board[rook_i][j+1] == '.'){
+                continue;
+            }else if(board[rook_i][j+1] == 'B'){
                 break;
-            }
-            if(board[index_x][i] == 'p'){
-                ans++;
-                break;
-            }
-        }
-        //check on right;
-        for(int i = index_x+1 ; i< board.size(); i++){
-            if(board[i][index_y] >='A' && board[i][index_y]<='Z'){
-                break;
-            }
-            if(board[i][index_y] == 'p'){
-                ans++;
+            }else if(board[rook_i][j+1] == 'p'){
+                count++;
                 break;
             }
         }
-        //check on left;
-        for(int i=index_x-1;i>=0  ;i--){
-            if(board[i][index_y] >='A' && board[i][index_y]<='Z'){
+        //towards left
+        for(int j = rook_j;j>=1 ;j--){
+            if(board[rook_i][j-1] == '.'){
+                continue;
+            }else if(board[rook_i][j-1] == 'B'){
                 break;
-            }
-            if(board[i][index_y] == 'p'){
-                ans++;
+            }else if(board[rook_i][j-1] == 'p'){
+                count++;
                 break;
             }
         }
-        return ans;
+        
+        //upwards
+        for(int i = rook_i;i>=1 ;i--){
+            if(board[i-1][rook_j] == '.'){
+                continue;
+            }else if(board[i-1][rook_j] == 'B'){
+                break;
+            }else if(board[i-1][rook_j] == 'p'){
+                count++;
+                break;
+            }
+        }
+        
+        
+        //downwards
+        for(int i = rook_i;i<board.size()-1;i++){
+            if(board[i+1][rook_j] == '.'){
+                continue;
+            }else if(board[i+1][rook_j] == 'B'){
+                break;
+            }else if(board[i+1][rook_j] == 'p'){
+                count++;
+                break;
+            }
+        }
+        return count;
     }
 };
