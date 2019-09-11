@@ -32,4 +32,26 @@ public:
         }
         return x;
     }
+
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        TreeNode * curr = root;
+        while(curr!=NULL){
+            if(val > curr->val){
+                if(curr->right == NULL){
+                    curr->right = new TreeNode(val);
+                    return root;
+                }else{
+                    curr = curr->right;
+                }
+            }else{
+                if(curr->left == NULL){
+                    curr->left = new TreeNode(val);
+                    return root;
+                }else{
+                    curr = curr->left;
+                }
+            }
+        }
+        return new TreeNode(val);
+    }
 };
