@@ -1,6 +1,5 @@
 class Solution {
 public:
-    
     vector<bool> prefixesDivBy5(vector<int>& A) {
         vector<bool> arr;
         int num = 0;
