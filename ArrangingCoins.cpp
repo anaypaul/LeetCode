@@ -3,11 +3,9 @@ public:
     int arrangeCoins(int n) {
         if(n<=1){
             return n;
-        }else if(n==3){
-            return 2;
         }
         int left = 1;
-        int right = (n/2)+1;
+        int right = n;
         while(left<right){
             unsigned long int mid = left + (right - left)/2;
             unsigned long int x = (mid*(mid + 1))/2;
