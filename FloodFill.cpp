@@ -1,33 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int x = image[sr][sc];
-        if(x==newColor){
+        if(image[sr][sc] == newColor){
             return image;
         }
-        int rows = image.size();
-        int cols = image[0].size();
-        queue<pair<int,int>> q;
-        q.push(make_pair(sr,sc));
+        int dx[4] = {-1,1,0,0};
+        int dy[4] = {0,0,-1,1};
+        int n = image.size();
+        int m = image[0].size();
+        int oldColor = image[sr][sc];
         image[sr][sc] = newColor;
+        queue<pair<int, int >> q;
+        q.push(make_pair(sr, sc));
         while(!q.empty()){
-            pair<int, int> temp = q.front();
-            q.pop();
-            if(temp.first+1 < rows && image[temp.first+1][temp.second] == x){
-                q.push(make_pair(temp.first+1, temp.second));
-                image[temp.first+1][temp.second] = newColor;
-            }
-            if(temp.first-1 >=0 && image[temp.first-1][temp.second] == x){
-                q.push(make_pair(temp.first-1, temp.second));
-                image[temp.first-1][temp.second] = newColor;
-            }
-            if(temp.second + 1<cols && image[temp.first][temp.second+1] == x){
-                q.push(make_pair(temp.first, temp.second+1));
-                image[temp.first][temp.second+1] = newColor;
-            }
-            if(temp.second -1 >=0 && image[temp.first][temp.second-1] == x){
-                q.push(make_pair(temp.first,temp.second-1));
-                image[temp.first][temp.second-1] = newColor;
+            int x = q.size();
+            for(int i = 0;i<x;i++){
+                pair<int, int> temp = q.front();
+                int x = temp.first;
+                int y = temp.second;
+                for(int idx = 0;idx<4;idx++){
+                    if(x+dx[idx]>=0 && x+dx[idx]<n && y+dy[idx]>=0 && y + dy[idx]<m && image[x+dx[idx]][y+dy[idx]] == oldColor){
+                        q.push(make_pair(x+dx[idx], y+dy[idx]));
+                        image[x+dx[idx]][y+dy[idx]] = newColor;
+                    }
+                }
+                q.pop();
             }
         }
         return image;
