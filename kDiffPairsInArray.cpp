@@ -7,9 +7,18 @@ public:
             m[n]++;
         }
         int res= 0;
-        
-        for(auto& p : m ){
-            res += k * m.count(p.first + k) || !k && p.second>1;
+        if(k != 0){
+            for(auto it = m.begin(); it != m.end(); it++){
+                if(m.find(it->first + k) != m.end()){
+                    res++;
+                }
+            }
+        }else{
+            for(auto it = m.begin(); it != m.end(); it++){
+                if(it->second>1){
+                    res++;
+                }
+            }
         }
         return res;
     }
