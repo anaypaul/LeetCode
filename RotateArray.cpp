@@ -29,3 +29,31 @@ public:
         }
     }
 };
+
+//Time Complexity : O(n)
+//Space Complexity : O(1)
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k = k % nums.size();
+        reverse(nums.begin(), nums.end());
+        int start = 0;
+        int end = k -1;
+        while(start <= end){
+            int t = nums[start];
+            nums[start] = nums[end];
+            nums[end] = t;
+            start++;
+            end--;
+        }
+        start = k;
+        end = nums.size()-1;
+        while(start<=end){
+            int t = nums[start];
+            nums[start] = nums[end];
+            nums[end] = t;
+            start++;
+            end--;
+        }
+    }
+};
