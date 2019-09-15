@@ -57,3 +57,25 @@ public:
         }
     }
 };
+
+//Time Complexity : O(n)
+//Space Complexity : O(1)
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k = k % nums.size();
+        int count = 0;
+        for(int start = 0;count<nums.size(); start++){
+            int current = start;
+            int prev = nums[start];
+            do{
+                int next_index = (current + k)%nums.size();
+                int temp = nums[next_index];
+                nums[next_index]= prev;
+                prev = temp;
+                current = next_index;
+                count++;
+            }while(start != current);
+        }
+    }
+};
