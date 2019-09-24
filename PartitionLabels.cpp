@@ -14,7 +14,6 @@ public:
             int count= 0;
             int sum = 0;
             set<char> temp;
-            count++;
             if(m[s[j]]>0){
                 count++;
                 m[s[j]]--;
@@ -37,10 +36,31 @@ public:
                 j++;
             }
             i = j;
-            res.push_back(count-1);
+            res.push_back(count);
         }
         return res;
     }
 };
 
-
+//Time Complexity : O(n)
+//Space Complexity: O(n)
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        vector<int> index(26, 0);
+        for(int i =0;i<s.length(); i++){
+            index[s[i]-'a'] = i;
+        }
+        vector<int> res;
+        int start = 0;
+        int x = 0;
+        for(int i = 0;i<s.length(); i++){
+            x = max(x, index[s[i]-'a']);
+            if(i == x){
+                res.push_back(i - start + 1);
+                start = i+1;
+            }
+        }
+        return res;
+    }
+};
