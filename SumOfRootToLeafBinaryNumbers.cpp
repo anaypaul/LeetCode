@@ -7,7 +7,6 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-vector<string> v;
 class Solution {
 public:
     bool isLeaf(TreeNode * root){
@@ -38,29 +37,26 @@ public:
         }
         return res;
     }
-    void dfs(TreeNode * root, string s){
+    void dfs(TreeNode * root, string s, vector<string>& v){
         if(isLeaf(root)){
             s = s + to_string(root->val);
-            cout<<s<<endl;
             v.push_back(s);
             return;
         }
         if(root->left){
-            dfs(root->left, s + to_string(root->val));
+            dfs(root->left, s + to_string(root->val), v);
         }
         if(root->right){
-            dfs(root->right, s + to_string(root->val));
+            dfs(root->right, s + to_string(root->val), v);
         }
     }
     int sumRootToLeaf(TreeNode* root) {
-        dfs(root, "");
+        vector<string> v;
+        dfs(root, "", v);
         int res = 0;
         for(auto each : v){
-            cout<<each<<" ";
-            cout<<binaryToInt(each)<<" ";
             res += binaryToInt(each);
         }
-        v.clear();
         return res;
     }
 };
