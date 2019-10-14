@@ -30,3 +30,28 @@ public:
         return -1;
     }
 };
+
+
+//Approach 2
+// Forward declaration of ArrayReader class.
+class ArrayReader;
+
+class Solution {
+public:
+    int search(const ArrayReader& reader, int target) {
+        int low = 0;
+        int high = 10000-1;
+        while(low<=high){
+            int mid = low + (high-low)/2;
+            int item = reader.get(mid);
+            if(item == target){
+                return mid;
+            }else if(target > item){
+                low = mid+1;
+            }else{
+                high = mid-1;
+            }
+        }
+        return -1;
+    }
+};
