@@ -1,61 +1,30 @@
-#include<iostream>
-#include<algorithm>
-#include<vector>
-using namespace std;
-// double helper(double ans, double base, int exp){
-//     if(exp==0){
-//         return ans;
-//     }else{
-//         ans = ans*base;
-//         return helper(ans, base, exp-1);
-//     }
-// }
-// double myPow(double base, int exp){
-//     if(base == 1.0 || exp == 0){
-//         return 1.0;
-//     }
-//     if(exp<0.0){
-//         base = 1/base;
-//         exp = exp*-1;
-//         return helper(1.0,base, exp);
-//     }else{
-//         return helper(1.0,base, exp);
-//     }
-// }
-double helper(double base , int exp){
-    if(exp%2 == 0){
-        if(exp ==1){
-            return base;
-        }else{
-            return helper(base*base, (int)exp/2);
+class Solution {
+public:
+    double cal(double base, long long int exp){
+        if(exp == 0){
+            return 1.0;
         }
-    }else{
-        if(exp==1){
-            return base;
+        double half = cal(base, exp/2);
+        if(exp%2 == 0 ){
+            return half * half;
         }else{
-            double x = helper(base*base, (int)exp/2);
-            x = x * base;
-            return x;
+            return half * half * base;
         }
     }
-}
-double power(double base, int exp){
-    if(exp==0){
-        cout<<"zero power"<<endl;
-        return 1;
-    }else if(exp<0){
-        cout<<"negative power"<<endl;
-        base = 1.0/base;
-        exp = exp*-1;
-    }else{
-        cout<<"positive power"<<endl;
-        
+    double myPow(double x, int n) {
+        long long int exp; 
+        if(n < 0){
+            exp = (long long int)-1 * n;
+        }else{
+            exp = n;
+        }
+        if(n==0){
+            return (double)1;
+        }
+        double value = cal(x, exp);
+        if(n<0){
+            return (double)1.0/value;
+        }
+        return value;
     }
-}
-int main(){
-    double base;
-    int exp;
-    cin>>base>>exp;
-    cout<<power(base,exp)<<endl;
-    return 0;
-}
+};
