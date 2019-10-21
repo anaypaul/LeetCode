@@ -27,3 +27,34 @@ public:
         return res;
     }
 };
+
+//Approach 2
+//Time : n*m
+class Solution {
+public:
+    int shortestWay(string source, string target) {
+        int res = 1;
+        int i = 0;
+        int j = 0;
+        while(j < target.size()){
+            int idx = i;
+            while(i<source.size() && target[j] != source[i]){
+                i++;
+            }
+            if(i == source.size()){
+                res++;
+                i = 0;
+                while(i < idx && source[i] != target[j]){
+                    i++;
+                }
+                if(i == idx){
+                    return -1;
+                }
+            }
+                
+            i++;
+            j++;
+        }
+        return res;
+    }
+};
