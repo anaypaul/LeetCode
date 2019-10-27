@@ -1,6 +1,6 @@
 //Approach 1: using binary search checking different weight value within the 
 //required range 
-//Time : O(N^2 log N)
+//Time : O(N log N)
 class Solution {
 public:
     bool check(vector<int> w , long long int cap, int D){
