@@ -1,3 +1,4 @@
+//Approach 1 : older code.
 class Solution {
 public:
     string reverseOnlyLetters(string S) {
@@ -35,4 +36,28 @@ public:
             }
             return res;
         }
+};
+
+//Approach 2: new code
+class Solution {
+public:
+    bool check(char ch){
+        return (ch>='a' && ch<='z') || (ch>='A' && ch<='Z');
+    }
+    string reverseOnlyLetters(string S) {
+        string res = "";
+        int j = S.size()-1;
+        for(int i = 0; i<S.size(); i++ ){
+            if(check(S[i])){
+                while(!check(S[j])){
+                    j--;
+                }
+                char ch = S[j--];
+                res = res + ch;
+            }else{
+                res = res + S[i];
+            }
+        }
+        return res;
+    }
 };
