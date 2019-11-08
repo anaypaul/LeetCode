@@ -1,66 +1,84 @@
-class Trienode {
-    public:
-    bool isEnd;
-    map<char, Trienode *> children;
-    Trienode(){
-        isEnd = false;
-    }
+#include <unordered_map>
+#include <string>
+
+using namespace std;
+
+class TrieNode {
+public:
+    TrieNode(char val) : val{val}, isEndOfWord{false} {}
+    char val;
+    bool isEndOfWord;
+    unordered_map<char,TrieNode*> children;
 };
 
-class Trie{
+class Trie {
 public:
-    /** Initialize your data structure here. */
-    
-    Trie() {
-        root = new Trienode;
+    Trie (){
+        root = new TrieNode(' ');
     }
     
-    /** Inserts a word into the trie. */
-    void insert(string word) {
-        Trienode * curr = root;
-        for(int i = 0;i<word.length();i++){
-            if(curr->children.find(word[i]) == curr->children.end()){
-                curr->children.insert(make_pair(word[i], new Trienode()));
+    void insert(string word){
+        unordered_map<char,TrieNode*>::iterator itr;
+        TrieNode * curr = root;
+        for(int i = 0; i<word.size(); i++){
+            itr = curr->children.find(word[i]); 
+            if(itr == curr->children.end()){
+                curr->children[word[i]] = new TrieNode(word[i]);
             }
             curr = curr->children[word[i]];
         }
-        curr->isEnd = true;
+        curr->isEndOfWord = true;
     }
     
-    /** Returns if the word is in the trie. */
-    bool search(string word) {
-        Trienode * curr = root;
-        for(int i = 0;i<word.length();i++){
-            if(curr->children.find(word[i]) == curr->children.end()){
+    bool search(string word){
+        unordered_map<char,TrieNode*>::iterator itr;
+        TrieNode * curr = root;
+        for(int i = 0; i<word.size(); i++){
+            itr = curr->children.find(word[i]);
+            if( itr == curr->children.end()){
                 return false;
             }
             curr = curr->children[word[i]];
         }
-        if(curr->isEnd ){
+        if(curr != nullptr && curr->isEndOfWord){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
     
-    /** Returns if there is any word in the trie that starts with the given prefix. */
-    bool startsWith(string prefix) {
-        Trienode *curr = root;
-        for(int i = 0;i<prefix.length();i++){
-            if(curr->children.find(prefix[i]) == curr->children.end()){
+    bool startsWith(string prefix){
+        unordered_map<char,TrieNode*>::iterator itr;
+        TrieNode * curr = root;
+        for(int i = 0; i<prefix.size(); i++){
+            itr = curr->children.find(prefix[i]);
+            if( itr == curr->children.end()){
                 return false;
             }
             curr = curr->children[prefix[i]];
         }
+        if(curr == nullptr){
+            return false;
+        }
         return true;
     }
-    Trienode *root;
-};
 
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie obj = new Trie();
- * obj.insert(word);
- * bool param_2 = obj.search(word);
- * bool param_3 = obj.startsWith(prefix);
- */
+private:
+    
+    TrieNode* startsWithHelper(string prefix){
+        
+        TrieNode* curr = root;
+        
+        unordered_map<char,TrieNode*>::iterator itr;
+        for (char ch : prefix){
+            itr = curr->children.find(ch);
+            if (itr == curr->children.end()){
+                return NULL;
+            }
+            curr = curr->children[ch];
+        }
+        
+        return curr;
+    }
+    
+    TrieNode* root;
+};
