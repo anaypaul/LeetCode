@@ -27,3 +27,31 @@ public:
         return res;
     }
 };
+
+//Approach 2:
+// using max-heap for arranging the elements in heap based on count
+struct mycmp{
+    bool operator()(pair<int,int> a,pair<int,int> b ){
+        return a.second < b.second;
+    }
+};
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int> m;
+        for(auto x: nums){
+            m[x]++;
+        }
+        priority_queue<pair<int,int>, vector<pair<int,int>> , mycmp> pq;
+        for(auto each : m){
+            pq.push({each.first, each.second});
+        }
+        vector<int> res;
+        for(int i = 0; i<k; i++){
+            res.push_back(pq.top().first);
+            cout<<pq.top().second<<endl;
+            pq.pop();
+        }
+        return res;
+    }
+};
