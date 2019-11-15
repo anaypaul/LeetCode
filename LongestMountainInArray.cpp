@@ -1,3 +1,4 @@
+//Approach 1 : Naive approach : time - O(n^2)
 class Solution {
 public:
     int check(vector<int> arr, int i){
@@ -35,3 +36,4 @@ public:
         return res;
     }
 };
+//Approach 2: time : O(n)
