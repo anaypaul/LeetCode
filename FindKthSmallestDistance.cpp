@@ -1,3 +1,26 @@
+// TLE solution
+class Solution {
+public:
+    int smallestDistancePair(vector<int>& nums, int k) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        priority_queue<int,vector<int>, greater<int>> pq;
+        int n = nums.size();
+        for(int i = 0; i<n-1; i++){
+            for(int j = i+1; j<n; j++){
+                pq.push(abs(nums[i]-nums[j]));
+            }
+        }
+        int res = 0;
+        while(k>0){
+            res = pq.top();
+            pq.pop();
+            k--;
+        }
+        return res;
+    }
+};
+// Accpeted Solution
 class Solution {
 public:
     int smallestDistancePair(vector<int>& nums, int k) {
