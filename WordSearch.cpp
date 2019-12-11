@@ -20,17 +20,10 @@ public:
             return false;
         }
         board[i][j] = '#';
-        if(dfs(i+ dx[0], j + dy[0], board, word, currIndex + 1)){
-            return true;
-        }
-        if(dfs(i+ dx[1], j + dy[1], board, word, currIndex + 1)){
-            return true;
-        }
-        if(dfs(i+ dx[2], j + dy[2], board, word, currIndex + 1)){
-            return true;
-        }
-        if(dfs(i+ dx[3], j + dy[3], board, word, currIndex + 1)){
-            return true;
+        for(int idx = 0; idx<4; idx++){
+            if(dfs(i+dx[idx], j+ dy[idx], board, word, currIndex + 1)){
+                return true;
+            }
         }
         board[i][j] = temp;
         return false;
