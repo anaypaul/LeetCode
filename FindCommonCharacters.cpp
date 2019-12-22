@@ -29,3 +29,46 @@ public:
         
     }
 };
+
+//Approach 2
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        vector<string> res;
+        int n = A.size();
+        int hash[n][26];
+        memset(hash, 0, sizeof(hash));
+        int idx = 0;
+        for(auto each : A){
+            for(auto x : each){
+                hash[idx][x-'a']++;
+            }
+            idx++;
+        }
+        for(int j = 0; j<26; j++){
+            int minCount = INT_MAX;
+            bool hashZero = false;
+            for(int i = 0; i<n; i++){
+                if(hash[i][j]>0){
+                    minCount = min(minCount, hash[i][j]);
+                }
+                if(hash[i][j] == 0){
+                    hashZero = true;
+                    break;
+                }
+            }
+            if(minCount!=INT_MAX && hashZero == false){
+                char c = (char)('a' + j);
+                string temp(1, c);
+                while(minCount){
+                    res.push_back(temp);
+                    minCount--;
+                }
+            }
+        }
+        return res;
+    }
+};
