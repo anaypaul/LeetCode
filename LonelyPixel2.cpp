@@ -38,7 +38,6 @@ public:
                             c++;
                         }
                     }
-                    cout<<c<<endl;
                     if(c == N){
                         res++;
                     }
