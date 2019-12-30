@@ -66,4 +66,25 @@ public:
     }
 };
 
-//Approch 3
+//Approach 3
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        int n = nums.size();
+        vector<bool> vis(n , false);
+        int currMax = 0;
+        for(int i = 0; i<n; i++){
+            currMax = max(currMax, i + nums[i]);
+            if(currMax >= n-1){
+                return true;
+            }
+            if(nums[i] == 0 && currMax <= i){
+                return false;
+            }
+        }
+        return true;
+    }
+};
