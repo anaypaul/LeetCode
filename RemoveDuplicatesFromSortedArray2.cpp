@@ -52,3 +52,28 @@ int main(){
     }
     return 0;
 }
+
+//Leetcode 
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        int idx = 0;
+        for(int i = 0; i<nums.size(); i++){
+            int curr = nums[i];
+            int j = i; 
+            int c = 0;
+            while(j<nums.size() && nums[j] == curr){
+                c++;
+                if(c<=2){
+                    swap(nums[j], nums[idx++]);
+                }
+                j++;
+            }
+            i = j-1;
+        }
+        return idx;
+    }
+};
