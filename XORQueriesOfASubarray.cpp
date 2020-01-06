@@ -12,3 +12,20 @@ public:
         return res;
     }
 };
+
+//Approach 2 : Time : O(n)
+// Space : O(n)
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        vector<int> pre(arr.size()+1);
+        for(int i = 0; i<arr.size(); i++){
+            pre[i+1] = pre[i] ^ arr[i];
+        }
+        vector<int> res;
+        for(auto q : queries){
+            res.push_back(pre[q[0]] ^ pre[q[1]+1]);
+        }
+        return res;
+    }
+};
