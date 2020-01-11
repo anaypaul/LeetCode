@@ -34,3 +34,67 @@ public:
         return res;
     }
 };
+
+// Approach 2 : using disjoint set
+class DSU{
+    public: 
+    int n;
+    vector<int> arr;
+    vector<int> size;
+    DSU(int n){
+        n = n;
+        vector<int> temp(n, 1);
+        size = temp;
+        vector<int> temp_arr(n);
+        arr = temp_arr;
+        for(int i = 0; i<n; i++){
+            arr[i] = i;
+        }
+    }
+    int root(int i){
+        while(arr[i] != i){
+            i = arr[arr[i]];
+        }
+        return i;
+    }
+    bool find(int x, int y){
+        if(root(x) == root(y)){
+            return true;
+        }
+        return false;
+    }
+    void weighted_union(int x, int y){
+        int rootx = root(x);
+        int rooty = root(y);
+        if(rootx == rooty){
+            return ;
+        }
+        if(size[rootx] < size[rooty]){
+            arr[rootx] = arr[rooty];
+            size[rooty] += size[rootx];
+            size[rootx] = 0;
+        }else{
+            arr[rooty] = arr[rootx];
+            size[rootx] += size[rooty];
+            size[rooty] = 0;
+        }
+    }
+};
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        DSU * obj = new DSU(n);
+        for(auto each : edges){
+            obj->weighted_union(each[0], each[1]);
+        }
+        unordered_set<int> s;
+        for(int i = 0; i<n; i++){
+            s.insert(obj->root(i));
+        }
+        return s.size();
+        
+    }
+};
