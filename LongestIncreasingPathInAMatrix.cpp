@@ -50,3 +50,46 @@ public:
         return ans; 
     }
 };
+
+//Approach 2
+int dx[4] = {0,0,-1,1};
+int dy[4] = {-1,1,0,0};
+class Solution {
+public:
+    bool check(int i, int j, int n, int m){
+        return i>=0 && j >=0 && i< n && j<m;
+    }
+    int dfs(int i, int j, vector<vector<int>>& mat, vector<vector<int>>& dp, int prev){
+        int n = mat.size();
+        int m = mat[0].size();
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int len = 1;
+        for(int idx = 0; idx<4; idx++){
+            if(check(i + dx[idx], j + dy[idx], n, m ) && mat[i+dx[idx]][j+dy[idx]] > prev){
+                int path_length = 1 + dfs(i+dx[idx], j + dy[idx], mat, dp, mat[i+dx[idx]][j+dy[idx]]);
+                len = max(len , path_length );
+            }
+        }
+        dp[i][j] = len;
+        return len;
+        
+    }
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        int ans = -1;
+        int n = matrix.size();
+        if(n == 0){
+            return 0;
+        }
+        int m = matrix[0].size();
+        
+        vector<vector<int>> dp(n, vector<int>(m, -1));
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<m; j++){
+                ans = max(ans , dfs(i, j, matrix, dp, matrix[i][j]));
+            }
+        }
+        return ans;
+    }
+};
