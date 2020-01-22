@@ -22,3 +22,44 @@ vector<string> reorderLogFiles(vector<string> &logs) {
     }
 
 };
+
+//Approach 2
+class Solution {
+public:
+    static bool mycmp(pair<string, string> p1, pair<string, string> p2){
+        if(p1.first.compare(p2.first) < 0){
+            return true;
+        }else if(p1.first.compare(p2.first) == 0){
+            if(p1.second.compare(p2.second) < 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    vector<string> reorderLogFiles(vector<string>& logs) {
+        vector<string> res;
+        vector<pair<string, string>> letterlogs;
+        vector<string> digitlogs;
+        for(auto log : logs){
+            int pos = log.find_first_of(' ');
+            string id = log.substr(0, pos);
+            string ll = log.substr(pos+1);
+            if(isalpha(ll[0])){
+                letterlogs.push_back(make_pair(ll, id));
+            }else{
+                digitlogs.push_back(log);
+            } 
+        }
+        sort(letterlogs.begin(), letterlogs.end(), mycmp);
+        for(auto each : letterlogs){
+            res.push_back(each.second + " " + each.first);
+        }
+        for(auto each : digitlogs){
+            res.push_back(each);
+        }
+        return res;
+    }
+};       
+        
