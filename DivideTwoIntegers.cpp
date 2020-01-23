@@ -1,86 +1,71 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<cmath>
-using namespace std;
-// int divide(int dividend, int divisor) {
-//     if(dividend == -2147483648 && divisor == -1){
-//         //overflow case
-//         return 2147483647;
-//     }else if(dividend == 2147483647 && divisor == -1 ){
-//         return -2147483647;
-//     }
-//     int sign = 1;
-//     if(dividend==0){
-//         cout<<"dividend = 0"<<endl;
-//         return 0;
-//     }
-//     if(divisor<0){
-//         divisor = -1*divisor;
-//         sign = -1;
-//     }
-//     if(dividend <0){
-//         if(dividend != -2147483648){
-//         dividend = -1*dividend;
-//         cout<<"changin sign of dividend"<<dividend<<endl;
-//         sign = -1*sign;
-//         }
-//         else{
-//             dividend = 2147483648;
-//             sign = -1*sign;
-//         }
-//     }
-    
-//     cout<<dividend<<" "<<divisor<<endl;
-//     if(divisor==1 ||divisor==-1){
-//         cout<<"special case "<<endl;
-//         cout<<sign<<" * "<<dividend<<endl;
-//         return sign * dividend;
-//     }
-//     int q = 0;
-//     int t = 0;
-//     while(dividend - t>= divisor){
-//         q++;
-//         cout<<q<<endl;
-//         if(t!=0){
-//             dividend-= t;
-//         }
-//         t = divisor;
-//     }
-//     cout<<"normal case"<<endl;
-//     return sign*q;
-// }
-int divide(long long int dividend,long long int divisor){
-    int sign = 1;
-    if(dividend<0){sign *= -1;}
-    if(divisor<0){sign *= -1;}
-    dividend = abs(dividend);
-    divisor = abs(divisor);
-    // cout<<abs(dividend)<<" "<<abs(divisor)<<endl;
-    // cout<<dividend<<" "<<divisor<<endl;
-
-    if(divisor==1 ||divisor==-1){
-        cout<<"special case "<<endl;
-        cout<<sign<<" * "<<dividend<<endl;
-        return sign * dividend;
-    }
-    long long int q = 0;
-    long long int t = 0;
-    while(dividend - t>= divisor){
-        q++;
-        // cout<<q<<endl;
-        if(t!=0){
-            dividend-= t;
+static auto x = []() {ios_base::sync_with_stdio(false); cin.tie(NULL); return NULL;}();
+// Timeout solution 
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        int res = 0;  
+        int sign = 1;
+        if(dividend > 0 && divisor > 0){
+            if(divisor == 1){
+                return dividend;
+            }
+            int curr = dividend;
+            while(curr - divisor >= 0){
+                curr = curr - divisor;
+                res++;
+            }
+        }else if(dividend < 0 && divisor > 0){
+            if(divisor == 1){
+                return dividend;
+            }
+            sign = -1;
+            // dividend = -1 * dividend;
+            long int d = -1 * (long)dividend;
+            long int curr = d;
+            while(curr - divisor >= 0){
+                curr = curr - divisor;
+                res++;
+            }
+        }else if(dividend > 0 && divisor < 0){
+            sign = -1;
+            divisor = -1 * divisor;
+            int curr = dividend;
+            while(curr - divisor >= 0){
+                curr = curr - divisor;
+                res++;
+            }
+        }else if(dividend < 0 && divisor < 0){
+            if(dividend == INT_MIN && divisor == -1){
+                return INT_MAX;
+            }
+            sign = 1;
+            divisor = abs(divisor);
+            long d = (long)dividend;
+            long curr = -1 * d;
+            while(curr - divisor>=0){
+                curr = curr-divisor;
+                res++;
+            }
         }
-        t = divisor;
+        return res* sign;
+        
     }
-    cout<<"normal case"<<endl;
-    return sign*q;
-}
-int main(){
-    int dividend,divisor;
-    cin>>dividend;
-    cin>>divisor;
-    cout<<divide(dividend,divisor)<<endl;
-    return 0;
-}
+};
+
+// Approach 2
+
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        int sign= (dividend<0 ^ divisor<0) ? -1 : 1; //same ? 0(false) (XOR)
+        
+        long ldividend=labs(dividend);
+        long ldivisor=labs(divisor);
+     
+        long res = exp(log(ldividend)-log(ldivisor));
+        cout<<ldividend<<"/"<<ldivisor<<"="<<res;
+        if(res>INT_MAX)
+            return sign==1 ? INT_MAX:INT_MIN;
+        return sign*(int)res;
+    }
+};
