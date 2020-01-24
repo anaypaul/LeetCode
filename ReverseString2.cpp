@@ -25,3 +25,22 @@ public:
         return res;
     }
 };
+
+//Implementation 2
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        int l = 0;
+        int h = s.size()-1;
+        for(int i = 0; i<s.size(); i = i + 2 *k){
+            int low = i;
+            int high = min(i + k -1, (int)s.size()-1);
+            while(low <= high){
+                char c = s[low];
+                s[low++] = s[high];
+                s[high--] = c;
+            }
+        }
+        return s;
+    }
+};
