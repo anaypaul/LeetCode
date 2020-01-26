@@ -29,3 +29,39 @@ public:
         return s.substr(left, maxLen);
     }
 };
+
+//Using dynamic programming
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        int n = s.size();
+        if(n == 1 || n == 0){
+            return s;
+        }
+        vector<vector<bool>> dp(n , vector<bool>(n , true));
+        for(int i = 0; i<n; i++){
+            dp[i][i] = true;
+        }
+        
+        int maxLen = 1;
+        int start = 0;
+        for(int l = 1; l<n; l++){
+            for(int i = 0; i + l<n; i++){
+                int j = i + l;
+                if(j - i + 1 == 2){
+                    dp[i][j] = s[i] == s[j];
+                }else{
+                    dp[i][j] = dp[i+1][j-1] && s[i] == s[j];
+                }
+                if(dp[i][j] && maxLen < j - i + 1){
+                    start = i;
+                    maxLen = j - i + 1;
+                }
+            }
+        }
+        return s.substr(start, maxLen);
+    }
+};
