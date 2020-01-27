@@ -1,3 +1,5 @@
+//Accepted earlier
+//Times out with new test cases
 class Solution {
 public:
     int distance(string s1, string s2){
@@ -34,5 +36,46 @@ public:
             }
         }
         return 0;
+    }
+};
+//Approach 2 : 
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        queue<string> curr;
+        queue<string> next;
+        curr.push(beginWord);
+        int len = 2;
+        while(!curr.empty()){
+            string node = curr.front();
+            curr.pop();
+            for(auto& x : wordList){
+                if(x == "" || check(x, node) == false){
+                    continue;
+                }
+                if(x == endWord){
+                    return len;
+                }
+                next.push(x);
+                x = "";
+            }
+            if(curr.empty()){
+                len++;
+                swap(curr, next);
+            }
+        }
+        return 0;
+    }
+    bool check(string& a, string& b){
+        int diff = 0;
+        for(int i = 0; i<a.size(); i++){
+            if(a[i] != b[i]){
+                diff++;
+            }
+            if(diff > 1){
+                return false;
+            }
+        }
+        return diff == 1;
     }
 };
