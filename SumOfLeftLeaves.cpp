@@ -37,6 +37,36 @@ public:
             }
         }
         return sum;
-        
+    }
+};
+
+//Approach 2 : recursive solution
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isLeaf(TreeNode * root){
+        return root->left == nullptr && root->right==nullptr;
+    }
+    void dfs(TreeNode * root, int& sum, bool flag){
+        if(root){
+            if(isLeaf(root) && flag){
+                sum += root->val;
+            }
+            dfs(root->left, sum, true);
+            dfs(root->right, sum, false);
+        }
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        int sum = 0;
+        dfs(root, sum, false);
+        return sum;
     }
 };
