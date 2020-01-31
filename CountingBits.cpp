@@ -38,3 +38,20 @@ public:
         return res;
     }
 };
+//Approach 2 : based on dynamic programming
+//making use of the fact that x and x & (x -1 ) differ only by 1 bit
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        if(num == 0){
+            return {0};
+        }
+        vector<int> res(num + 1);
+        res[0] = 0;
+        res[1] = 1;
+        for(int i = 2; i<=num; i++){
+            res[i] = res[i&(i-1)] + 1;
+        }
+        return res;
+    }
+};
