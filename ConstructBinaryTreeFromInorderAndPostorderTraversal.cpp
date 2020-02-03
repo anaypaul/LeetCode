@@ -33,3 +33,45 @@ public:
     }
     
 };
+
+//Clean code
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map<int, int> m;
+    int idx;
+    TreeNode * helper(vector<int>& postorder, int low, int high){
+        if(low > high ){
+            return nullptr;
+        }
+        TreeNode * temp = new TreeNode(postorder[idx--]);
+        
+        temp->right = helper(postorder, m[temp->val] + 1, high);
+        temp->left = helper(postorder, low, m[temp->val] - 1);
+        return temp;
+        
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        if(inorder.size() == 0 || postorder.size() == 0){
+            return nullptr;
+        }
+        int n = inorder.size();
+        for(int i = 0; i<inorder.size(); i++){
+            m[inorder[i]] = i;
+        }
+        idx = n-1;
+        TreeNode * node = new TreeNode(postorder[idx--]);
+        node->right = helper(postorder, m[node->val] + 1, n-1);
+        node->left = helper(postorder, 0, m[node->val] - 1);
+        return node;
+    }
+    
+};
