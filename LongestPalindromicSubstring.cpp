@@ -65,3 +65,47 @@ public:
         return s.substr(start, maxLen);
     }
 };
+
+//Approach 2 : topdown with memoization 
+// memory limit exceeds
+// time : O(n * n)
+// space : O(n * n  + n)
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.size() == 0 || s.size() == 1){
+            return s;
+        }
+        int n = s.size();
+        string res = "";
+        
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        helper(s, 0, n-1, dp, res);
+        return res;
+    }
+    int helper(string s, int start, int end, vector<vector<int>>& dp, string& res){
+        if(start > end){
+            return 0;
+        }
+        if(start == end){
+            return 1;
+        }
+        if(dp[start][end] == -1){
+            int c1 = 0;
+            if(s[start] == s[end]){
+                int r = end - start -1;
+                if(r == helper(s, start + 1, end -1 , dp, res)){
+                    c1 =  r + 2;
+                }
+            }
+            int c2 = helper(s, start + 1, end , dp, res);
+            int c3 = helper(s, start , end - 1, dp, res);
+            int x = max(c1, max(c2, c3));
+            if(res.size() < x){
+                res = s.substr(start, x);
+            }
+            dp[start][end] = x;
+        }
+        return dp[start][end];
+    }
+};
