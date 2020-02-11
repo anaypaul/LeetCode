@@ -54,3 +54,41 @@ public:
         return dp[nums.size()-1 ][sum/2];
     }
 };
+
+//Approach 3 : Top Down with memoization
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if(sum % 2){
+            return false;
+        }
+        int n = nums.size();
+        int target = sum / 2;
+        vector<vector<int>> dp(n, vector<int>(target+1, -1));
+        return helper(nums, 0, target, dp);
+        
+    }
+    bool helper(vector<int>& nums, int curr, int target, vector<vector<int>>& dp){
+        cout<<"target"<<target<<endl;
+        if(target == 0){
+            return true;
+        }
+        if(curr >= nums.size() || nums.size() == 0){
+            return false;
+        }
+        if(dp[curr][target] != -1){
+            return dp[curr][target];   
+        }
+        
+        if(nums[curr] <= target){
+            if(helper(nums, curr + 1, target - nums[curr], dp)){
+                dp[curr][target] = 1;
+                return true;
+            }
+        }
+        dp[curr][target] = helper(nums, curr + 1, target, dp) ? 1 : 0;
+        return dp[curr][target] == 1 ? true: false;
+        
+    }
+};
