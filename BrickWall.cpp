@@ -51,3 +51,29 @@ public:
         return res;
     }
 };
+
+//Approach 2: Using hashmap
+//time : O(n) , n = total number of bricks in the wall
+//space : O(m) , m =  width of the wall
+class Solution {
+public:
+    int leastBricks(vector<vector<int>>& wall) {
+        std::ios_base::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
+        unordered_map<int, int > m;
+        int width = accumulate(wall[0].begin(), wall[0].end(), 0);
+        int maxCount = INT_MIN;
+        for(int i = 0; i<wall.size(); i++){
+            int sum = 0;
+            for(int j = 0; j<wall[i].size(); j++){
+                sum += wall[i][j];
+                if(sum != width){
+                    m[sum]++;
+                    maxCount = max(maxCount , m[sum]);
+                }
+            }
+        }
+        return maxCount == INT_MIN ? wall.size() : wall.size() - maxCount;
+    }
+};
