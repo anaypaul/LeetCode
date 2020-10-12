@@ -18,3 +18,13 @@ public:
         return res;
     }
 };
+
+//Approach 2 : using count_if with a lambda expression.
+class Solution {
+public:
+    int findNumbers(vector<int>& nums) {
+        return count_if(nums.begin(), nums.end(), [](int x){
+            return ((int)log10(x) & 1);
+        });
+    }
+};
